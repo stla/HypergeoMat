@@ -39,9 +39,10 @@
 #'   hypergeomPFQ(15, a = c(3-1,2), b = 3, -X%*%solve(diag(3)-X))
 hypergeomPFQ <- function(m, a, b, x, alpha = 2){
   stopifnot(
-    m >= 1,
+    isPositiveInteger(m),
     is.null(a) || is.vector(a),
     is.null(b) || is.vector(b),
+    is.numeric(alpha),
     alpha > 0
   )
   if(is.matrix(x)){
