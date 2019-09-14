@@ -68,7 +68,7 @@ hypergeomPFQ <- function(m, a, b, x, alpha = 2){
           }else{
             if(Nkappa > 1L){
               J[Nkappa,t] <<- J[Nkappa,t] + gamma*x[t]^(c+1L) *
-                ifelse(any(mu>0L), J[Nmu,t-1L], 1) #any(mu>0L) <=> mu[1]>0L ?
+                ifelse(mu[1]>0L, J[Nmu,t-1L], 1) #any(mu>0L) <=> mu[1]>0L ?
             }
           }
           mu[i] <- mu[i] + 1L
