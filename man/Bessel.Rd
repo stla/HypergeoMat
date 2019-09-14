@@ -4,7 +4,7 @@
 \alias{Bessel}
 \title{Type one Bessel function of Herz}
 \usage{
-Bessel(m, x, gamma)
+Bessel(m, x, nu)
 }
 \arguments{
 \item{m}{truncation weight, a positive integer}
@@ -12,24 +12,24 @@ Bessel(m, x, gamma)
 \item{x}{either a real symmetric matrix, a Hermitian complex matrix,
 or a numeric or complex vector, the eigen values of the matrix}
 
-\item{gamma}{the gamma parameter, real or complex number with \code{Re(gamma)>-1}}
+\item{nu}{the order parameter, real or complex number with \code{Re(nu)>-1}}
 }
 \value{
 A real or complex number.
 }
 \description{
-Evaluates the type one Bessel of Herz.
+Evaluates the type one Bessel function of Herz.
 }
 \examples{
-# for a single x, the relation with the Bessel J-function:
+# for a scalar x, the relation with the Bessel J-function:
 t <- 2
-gamma <- 3
-besselJ(t, gamma)
-Bessel(m=15, t^2/4, gamma) * (t/2)^gamma
+nu <- 3
+besselJ(t, nu)
+Bessel(m=15, t^2/4, nu) * (t/2)^nu
 # it also holds for a complex variable:
 t <- 1 + 2i
-Bessel::BesselJ(t, gamma)
-Bessel(m=15, t^2/4, gamma) * (t/2)^gamma
+Bessel::BesselJ(t, nu)
+Bessel(m=15, t^2/4, nu) * (t/2)^nu
 }
 \references{
 A. K. Gupta and D. K. Nagar.

@@ -28,7 +28,7 @@ Evaluates a truncated hypergeometric function of a matrix
 argument.
 }
 \examples{
-# a single x example, the Gauss hypergeometric function
+# a scalar x example, the Gauss hypergeometric function
 hypergeomPFQ(m = 20, a = c(1,2), b = c(3), x = 0.5)
 gsl::hyperg_2F1(1, 2, 3, 0.5)
 # 0F0 is the exponential of the trace

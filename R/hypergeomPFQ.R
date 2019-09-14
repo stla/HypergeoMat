@@ -19,7 +19,7 @@
 #' \emph{The Efficient Evaluation of the Hypergeometric Function of a Matrix Argument}.
 #' Mathematics of Computation, 75, 833-846, 2006.
 #'
-#' @examples # a single x example, the Gauss hypergeometric function
+#' @examples # a scalar x example, the Gauss hypergeometric function
 #' hypergeomPFQ(m = 20, a = c(1,2), b = c(3), x = 0.5)
 #' gsl::hyperg_2F1(1, 2, 3, 0.5)
 #' # 0F0 is the exponential of the trace
