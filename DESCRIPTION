@@ -1,0 +1,14 @@
+Package: HypergeoMat
+Type: Package
+Title: Hypergeometric Function of a Matrix Argument
+Version: 0.1.0
+Author: Stéphane Laurent
+Maintainer: Stéphane Laurent <laurent_step@outlook.fr>
+Description: Evaluates the hypergeometric functions of a matrix argument, which appear in random matrix theory. This is an implementation of Koev & Edelman's algorithm (2006) <doi:10.1090/S0025-5718-06-01824-2>. 
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Imports: arrangements
+Suggests: 
+    testthat, gsl
+RoxygenNote: 6.1.1
