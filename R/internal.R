@@ -1,4 +1,5 @@
 #' @importFrom arrangements npartitions
+#' @importFrom utils head tail
 NULL
 
 .P <- function(m, n){
