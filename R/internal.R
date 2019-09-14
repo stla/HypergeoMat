@@ -60,5 +60,5 @@ HypergeoI <- function(m, alpha, a, b, n, x){
 }
 
 isPositiveInteger <- function(m){
-  m >= 1 && floor(m) == m
+  is.vector(m) && is.numeric(m) && length(m) == 1L && floor(m) == m
 }
