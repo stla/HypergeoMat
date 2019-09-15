@@ -18,7 +18,7 @@
 #' @note The hypergeometric function of a matrix argument is usually defined
 #' for a symmetric real matrix or a Hermitian complex matrix.
 #'
-#' @references Koev, P. and Edelman, A. (2006).
+#' @references Plamen Koev and Alan Edelman.
 #' \emph{The Efficient Evaluation of the Hypergeometric Function of a Matrix Argument}.
 #' Mathematics of Computation, 75, 833-846, 2006.
 #'

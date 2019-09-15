@@ -52,7 +52,7 @@ det(diag(3)-X)^(-2) *
   hypergeomPFQ(15, a = c(3-1,2), b = 3, -X\%*\%solve(diag(3)-X))
 }
 \references{
-Koev, P. and Edelman, A. (2006).
+Plamen Koev and Alan Edelman.
 \emph{The Efficient Evaluation of the Hypergeometric Function of a Matrix Argument}.
 Mathematics of Computation, 75, 833-846, 2006.
 }
