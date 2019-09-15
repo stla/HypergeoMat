@@ -9,7 +9,7 @@
 #' @param b the "lower" parameters, a numeric or complex vector,
 #' possibly empty (or \code{NULL})
 #' @param x either a real symmetric matrix, a Hermitian complex matrix,
-#' or a numeric or complex vector, the eigen values of the matrix
+#' or a numeric or complex vector, the eigenvalues of the matrix
 #' @param alpha the alpha parameter, a positive number
 #'
 #' @return A real or a complex number.
@@ -46,8 +46,9 @@ hypergeomPFQ <- function(m, a, b, x, alpha = 2){
     alpha > 0
   )
   if(is.matrix(x)){
-    stopifnot(isSymmetric(x))
-    x <- eigen(x, symmetric = TRUE, only.values = TRUE)$values
+    # stopifnot(isSymmetric(x))
+    # x <- eigen(x, symmetric = TRUE, only.values = TRUE)$values
+    x <- eigen(x, only.values = TRUE)$values
   }else{
     stopifnot(is.vector(x))
   }

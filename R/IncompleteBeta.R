@@ -6,7 +6,7 @@
 #' @param a,b real or complex parameters with \code{Re(a)>(p-1)/2},
 #' \code{Re(b)>(p-1)/2}, where \code{p} is the dimension (the order of the matrix)
 #' @param x either a real symmetric matrix "smaller" than the identity matrix,
-#' or a numeric vector, the eigen values of the matrix
+#' or a numeric vector, the eigenvalues of the matrix
 #'
 #' @return A real number.
 #' @export

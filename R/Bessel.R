@@ -5,7 +5,7 @@
 #' @param m truncation weight, a positive integer
 #' @param nu the order parameter, real or complex number with \code{Re(nu)>-1}
 #' @param x either a real symmetric matrix, a Hermitian complex matrix,
-#' or a numeric or complex vector, the eigen values of the matrix
+#' or a numeric or complex vector, the eigenvalues of the matrix
 #'
 #' @return A real or complex number.
 #' @export
