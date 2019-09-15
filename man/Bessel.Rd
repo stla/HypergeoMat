@@ -7,7 +7,7 @@
 Bessel(m, x, nu)
 }
 \arguments{
-\item{m}{truncation weight, a positive integer}
+\item{m}{truncation weight of the summation, a positive integer}
 
 \item{x}{either a real or complex square matrix,
 or a numeric or complex vector, the eigenvalues of the matrix}

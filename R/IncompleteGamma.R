@@ -2,7 +2,7 @@
 #'
 #' @description Evaluates the incomplete Gamma function of a matrix argument.
 #'
-#' @param m truncation weight, a positive integer
+#' @param m truncation weight of the summation, a positive integer
 #' @param a real or complex parameter with \code{Re(a)>(p-1)/2}, where
 #' \code{p} is the dimension (the order of the matrix)
 #' @param x either a real or complex square matrix,

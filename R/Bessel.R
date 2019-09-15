@@ -2,7 +2,7 @@
 #'
 #' @description Evaluates the type one Bessel function of Herz.
 #'
-#' @param m truncation weight, a positive integer
+#' @param m truncation weight of the summation, a positive integer
 #' @param nu the order parameter, real or complex number with \code{Re(nu)>-1}
 #' @param x either a real or complex square matrix,
 #' or a numeric or complex vector, the eigenvalues of the matrix

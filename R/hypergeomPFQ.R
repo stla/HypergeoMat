@@ -3,7 +3,7 @@
 #' @description Evaluates a truncated hypergeometric function of a matrix
 #' argument.
 #'
-#' @param m truncation weight, a positive integer
+#' @param m truncation weight of the summation, a positive integer
 #' @param a the "upper" parameters, a numeric or complex vector,
 #' possibly empty (or \code{NULL})
 #' @param b the "lower" parameters, a numeric or complex vector,

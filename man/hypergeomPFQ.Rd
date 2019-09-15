@@ -7,7 +7,7 @@
 hypergeomPFQ(m, a, b, x, alpha = 2)
 }
 \arguments{
-\item{m}{truncation weight, a positive integer}
+\item{m}{truncation weight of the summation, a positive integer}
 
 \item{a}{the "upper" parameters, a numeric or complex vector,
 possibly empty (or \code{NULL})}

@@ -7,7 +7,7 @@
 IncGamma(m, a, x)
 }
 \arguments{
-\item{m}{truncation weight, a positive integer}
+\item{m}{truncation weight of the summation, a positive integer}
 
 \item{a}{real or complex parameter with \code{Re(a)>(p-1)/2}, where
 \code{p} is the dimension (the order of the matrix)}

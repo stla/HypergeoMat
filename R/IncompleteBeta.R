@@ -2,7 +2,7 @@
 #'
 #' @description Evaluates the incomplete Beta function of a matrix argument.
 #'
-#' @param m truncation weight, a positive integer
+#' @param m truncation weight of the summation, a positive integer
 #' @param a,b real or complex parameters with \code{Re(a)>(p-1)/2},
 #' \code{Re(b)>(p-1)/2}, where \code{p} is the dimension (the order of the matrix)
 #' @param x either a real positive symmetric matrix or a complex positive
@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @note The eigenvalues of a real symmetric matrix or a complex Hermitian
-#' matrix are always real numbers, and moreover the are positive under the
+#' matrix are always real numbers, and moreover they are positive under the
 #' constraints on \code{x}.
 #' However we allow to input a numeric or complex vector \code{x}
 #' because the definition of the function makes sense for such a \code{x}.
