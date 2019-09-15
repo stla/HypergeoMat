@@ -64,5 +64,5 @@ isPositiveInteger <- function(m){
 }
 
 isSymmetricPositive <- function(M){
-  isSymmetric(M) && all(eigen(M, only.values = TRUE)$values >= 0)
+  isSymmetric(M) && all(eigen(M, symmetric = TRUE, only.values = TRUE)$values >= 0)
 }
