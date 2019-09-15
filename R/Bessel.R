@@ -20,12 +20,12 @@
 #' t <- 2
 #' nu <- 3
 #' besselJ(t, nu)
-#' Bessel(m=15, t^2/4, nu) * (t/2)^nu
+#' BesselA(m=15, t^2/4, nu) * (t/2)^nu
 #' # it also holds for a complex variable:
 #' t <- 1 + 2i
 #' Bessel::BesselJ(t, nu)
-#' Bessel(m=15, t^2/4, nu) * (t/2)^nu
-Bessel <- function(m, x, nu){
+#' BesselA(m=15, t^2/4, nu) * (t/2)^nu
+BesselA <- function(m, x, nu){
   stopifnot(
     is.atomic(nu),
     length(nu) == 1L,
