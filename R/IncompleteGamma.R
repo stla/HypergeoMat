@@ -5,11 +5,14 @@
 #' @param m truncation weight, a positive integer
 #' @param a real or complex parameter with \code{Re(a)>(p-1)/2}, where
 #' \code{p} is the dimension (the order of the matrix)
-#' @param x either a real symmetric matrix, a Hermitian complex matrix,
+#' @param x either a real or complex square matrix,
 #' or a numeric or complex vector, the eigenvalues of the matrix
 #'
 #' @return A real or complex number.
 #' @export
+#'
+#' @note This function is usually defined
+#' for a symmetric real matrix or a Hermitian complex matrix.
 #'
 #' @references A. K. Gupta and D. K. Nagar.
 #' \emph{Matrix variate distributions}. Chapman and Hall, 1999.
@@ -21,14 +24,19 @@
 #' gsl::gamma_inc_P(a, x)
 IncGamma <- function(m, a, x){
   if(is.matrix(x)){
-    stopifnot(isSymmetric(x))
+#    stopifnot(isSymmetric(x))
     p <- nrow(x)
-  }else if(is.vector(x)){
+  }else if(is.atomic(x)){
     p <- length(x)
   }else{
     stop("Invalid `x` argument")
   }
-  stopifnot(is.numeric(a) || is.complex(a), Re(a) > (p-1)/2)
+  stopifnot(
+    is.atomic(a),
+    length(a) == 1L,
+    is.numeric(a) || is.complex(a),
+    Re(a) > (p-1)/2
+  )
   if(is.matrix(x)){
     DET <- det(x)
   }else{

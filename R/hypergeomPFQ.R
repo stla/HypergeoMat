@@ -8,12 +8,15 @@
 #' possibly empty (or \code{NULL})
 #' @param b the "lower" parameters, a numeric or complex vector,
 #' possibly empty (or \code{NULL})
-#' @param x either a real symmetric matrix, a Hermitian complex matrix,
+#' @param x either a real or complex square matrix,
 #' or a numeric or complex vector, the eigenvalues of the matrix
 #' @param alpha the alpha parameter, a positive number
 #'
 #' @return A real or a complex number.
 #' @export
+#'
+#' @note The hypergeometric function of a matrix argument is usually defined
+#' for a symmetric real matrix or a Hermitian complex matrix.
 #'
 #' @references Koev, P. and Edelman, A. (2006).
 #' \emph{The Efficient Evaluation of the Hypergeometric Function of a Matrix Argument}.
@@ -40,8 +43,10 @@
 hypergeomPFQ <- function(m, a, b, x, alpha = 2){
   stopifnot(
     isPositiveInteger(m),
-    is.null(a) || is.vector(a),
-    is.null(b) || is.vector(b),
+    is.null(a) || is.atomic(a),
+    is.null(b) || is.atomic(b),
+    is.atomic(alpha),
+    length(alpha) == 1L,
     is.numeric(alpha),
     alpha > 0
   )
@@ -50,7 +55,7 @@ hypergeomPFQ <- function(m, a, b, x, alpha = 2){
     # x <- eigen(x, symmetric = TRUE, only.values = TRUE)$values
     x <- eigen(x, only.values = TRUE)$values
   }else{
-    stopifnot(is.vector(x))
+    stopifnot(is.atomic(x), is.numeric(x) || is.complex(x))
   }
   if(all(x == x[1L])){
     return(HypergeoI(m, alpha, a, b, length(x), x[1L]))

@@ -12,14 +12,22 @@ IncBeta(m, a, b, x)
 \item{a, b}{real or complex parameters with \code{Re(a)>(p-1)/2},
 \code{Re(b)>(p-1)/2}, where \code{p} is the dimension (the order of the matrix)}
 
-\item{x}{either a real symmetric matrix "smaller" than the identity matrix,
-or a numeric vector, the eigen values of the matrix}
+\item{x}{either a real positive symmetric matrix or a complex positive
+Hermitian matrix "smaller" than the identity matrix (i.e. \code{I-x} is positive),
+or a numeric or complex vector, the eigenvalues of the matrix}
 }
 \value{
-A real number.
+A real or a complex number.
 }
 \description{
 Evaluates the incomplete Beta function of a matrix argument.
+}
+\note{
+The eigenvalues of a real symmetric matrix or a complex Hermitian
+matrix are always real numbers, and moreover the are positive under the
+constraints on \code{x}.
+However we allow to input a numeric or complex vector \code{x}
+because the definition of the function makes sense for such a \code{x}.
 }
 \examples{
 # for a scalar x, this is the incomplete Beta function:

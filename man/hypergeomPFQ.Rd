@@ -15,8 +15,8 @@ possibly empty (or \code{NULL})}
 \item{b}{the "lower" parameters, a numeric or complex vector,
 possibly empty (or \code{NULL})}
 
-\item{x}{either a real symmetric matrix, a Hermitian complex matrix,
-or a numeric or complex vector, the eigen values of the matrix}
+\item{x}{either a real or complex square matrix,
+or a numeric or complex vector, the eigenvalues of the matrix}
 
 \item{alpha}{the alpha parameter, a positive number}
 }
@@ -26,6 +26,10 @@ A real or a complex number.
 \description{
 Evaluates a truncated hypergeometric function of a matrix
 argument.
+}
+\note{
+The hypergeometric function of a matrix argument is usually defined
+for a symmetric real matrix or a Hermitian complex matrix.
 }
 \examples{
 # a scalar x example, the Gauss hypergeometric function

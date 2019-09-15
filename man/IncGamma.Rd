@@ -12,14 +12,18 @@ IncGamma(m, a, x)
 \item{a}{real or complex parameter with \code{Re(a)>(p-1)/2}, where
 \code{p} is the dimension (the order of the matrix)}
 
-\item{x}{either a real symmetric matrix, a Hermitian complex matrix,
-or a numeric or complex vector, the eigen values of the matrix}
+\item{x}{either a real or complex square matrix,
+or a numeric or complex vector, the eigenvalues of the matrix}
 }
 \value{
 A real or complex number.
 }
 \description{
 Evaluates the incomplete Gamma function of a matrix argument.
+}
+\note{
+This function is usually defined
+for a symmetric real matrix or a Hermitian complex matrix.
 }
 \examples{
 # for a scalar x, this is the incomplete Gamma function:

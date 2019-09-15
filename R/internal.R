@@ -62,3 +62,7 @@ HypergeoI <- function(m, alpha, a, b, n, x){
 isPositiveInteger <- function(m){
   is.vector(m) && is.numeric(m) && length(m) == 1L && floor(m) == m
 }
+
+isSymmetricPositive <- function(M){
+  isSymmetric(M) && all(eigen(M, only.values = TRUE)$values >= 0)
+}

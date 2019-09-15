@@ -9,8 +9,8 @@ Bessel(m, x, nu)
 \arguments{
 \item{m}{truncation weight, a positive integer}
 
-\item{x}{either a real symmetric matrix, a Hermitian complex matrix,
-or a numeric or complex vector, the eigen values of the matrix}
+\item{x}{either a real or complex square matrix,
+or a numeric or complex vector, the eigenvalues of the matrix}
 
 \item{nu}{the order parameter, real or complex number with \code{Re(nu)>-1}}
 }
@@ -19,6 +19,10 @@ A real or complex number.
 }
 \description{
 Evaluates the type one Bessel function of Herz.
+}
+\note{
+This function is usually defined
+for a symmetric real matrix or a Hermitian complex matrix.
 }
 \examples{
 # for a scalar x, the relation with the Bessel J-function:

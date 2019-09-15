@@ -4,11 +4,14 @@
 #'
 #' @param m truncation weight, a positive integer
 #' @param nu the order parameter, real or complex number with \code{Re(nu)>-1}
-#' @param x either a real symmetric matrix, a Hermitian complex matrix,
+#' @param x either a real or complex square matrix,
 #' or a numeric or complex vector, the eigenvalues of the matrix
 #'
 #' @return A real or complex number.
 #' @export
+#'
+#' @note This function is usually defined
+#' for a symmetric real matrix or a Hermitian complex matrix.
 #'
 #' @references A. K. Gupta and D. K. Nagar.
 #' \emph{Matrix variate distributions}. Chapman and Hall, 1999.
@@ -23,7 +26,12 @@
 #' Bessel::BesselJ(t, nu)
 #' Bessel(m=15, t^2/4, nu) * (t/2)^nu
 Bessel <- function(m, x, nu){
-  stopifnot(is.numeric(nu) || is.complex(nu), Re(nu) > -1)
+  stopifnot(
+    is.atomic(nu),
+    length(nu) == 1L,
+    is.numeric(nu) || is.complex(nu),
+    Re(nu) > -1
+  )
   if(is.matrix(x)){
     p <- nrow(x)
   }else{
