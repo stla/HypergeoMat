@@ -32,6 +32,7 @@ NULL
 lmvgamma <- function(x, p){
   stopifnot(
     isPositiveInteger(p),
+    is.vector(x) && is.atomic(x),
     is.numeric(x) || is.complex(x),
     length(x) == 1L,
     Re(x) > 0
@@ -72,9 +73,11 @@ NULL
 lmvbeta <- function(a, b, p){
   stopifnot(
     isPositiveInteger(p),
+    is.vector(a) && is.atomic(a),
     is.numeric(a) || is.complex(a),
     length(a) == 1L,
     Re(a) > 0,
+    is.vector(b) && is.atomic(b),
     is.numeric(b) || is.complex(b),
     length(b) == 1L,
     Re(b) > 0

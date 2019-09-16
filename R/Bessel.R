@@ -27,7 +27,7 @@
 #' BesselA(m=15, t^2/4, nu) * (t/2)^nu
 BesselA <- function(m, x, nu){
   stopifnot(
-    is.atomic(nu),
+    is.vector(nu) && is.atomic(nu),
     length(nu) == 1L,
     is.numeric(nu) || is.complex(nu),
     Re(nu) > -1

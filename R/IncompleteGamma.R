@@ -26,13 +26,13 @@ IncGamma <- function(m, a, x){
   if(is.matrix(x)){
 #    stopifnot(isSymmetric(x))
     p <- nrow(x)
-  }else if(is.atomic(x)){
+  }else if(is.vector(x) && is.atomic(x)){
     p <- length(x)
   }else{
     stop("Invalid `x` argument")
   }
   stopifnot(
-    is.atomic(a),
+    is.vector(a) && is.atomic(a),
     length(a) == 1L,
     is.numeric(a) || is.complex(a),
     Re(a) > (p-1)/2

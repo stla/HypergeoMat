@@ -82,9 +82,25 @@ In the `HypergeoMat` package, $m$ is called the
 the vector $(a_1, \ldots, a_p)$ is 
 called the vector of *upper parameters* while 
 the vector $(b_1, \ldots, b_q)$ is 
-called the vector of *lower parameters*.  
+called the vector of *lower parameters*. 
 The user can enter either the matrix $X$ or the vector $(x_1, \ldots, x_n)$ 
 of the eigenvalues of $X$. 
+
+For example, to compute
+$$
+{{}_{2\!\!\!\!\!}}^{15}\! F_3^{(2)}
+\left(\begin{matrix} 3, 4 \\ 5, 6, 7\end{matrix}; 
+\begin{pmatrix}
+0.1 && 0.4 \\
+0.4 && 0.1
+\end{pmatrix}\right)
+$$
+you have to enter (recall that $\alpha=2$ is the default value)
+```{r}
+hypergeomPFQ(m = 15, a = c(3,4), b = c(5,6,7), x = cbind(c(0.1,0.4),c(0.4,0.1)))
+```
+
+
 
 We said that the hypergeometric function is defined for a real symmetric 
 matrix or a complex Hermitian matrix $X$. However we do not impose this 
@@ -94,7 +110,7 @@ or complex square matrix, or a real or complex vector of eigenvalues.
 
 # References 
 
-- Plamen Koev, and Alan Edelman. 
+- Plamen Koev and Alan Edelman. 
 *The Efficient Evaluation of the Hypergeometric Function of a Matrix Argument*.  Mathematics of Computation, 75, 833-846, 2006.
 
 - Robb Muirhead. 

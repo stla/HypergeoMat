@@ -43,9 +43,9 @@
 hypergeomPFQ <- function(m, a, b, x, alpha = 2){
   stopifnot(
     isPositiveInteger(m),
-    is.null(a) || is.atomic(a),
-    is.null(b) || is.atomic(b),
-    is.atomic(alpha),
+    is.null(a) || (is.vector(a) && is.atomic(a)),
+    is.null(b) || (is.vector(b) && is.atomic(b)),
+    is.vector(alpha) && is.atomic(alpha),
     length(alpha) == 1L,
     is.numeric(alpha),
     alpha > 0
