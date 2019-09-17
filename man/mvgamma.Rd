@@ -10,7 +10,8 @@ lmvgamma(x, p)
 mvgamma(x, p)
 }
 \arguments{
-\item{x}{a real or a complex number with \code{Re(x)>0}}
+\item{x}{a real or a complex number; \code{Re(x)>0} for \code{lmvgamma} and
+\code{x} must not be a negative integer for \code{mvgamma}}
 
 \item{p}{a positive integer, the dimension}
 }

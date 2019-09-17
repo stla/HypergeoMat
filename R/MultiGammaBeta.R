@@ -5,7 +5,8 @@
 #'
 #' @name mvgamma
 #'
-#' @param x a real or a complex number with \code{Re(x)>0}
+#' @param x a real or a complex number; \code{Re(x)>0} for \code{lmvgamma} and
+#' \code{x} must not be a negative integer for \code{mvgamma}
 #' @param p a positive integer, the dimension
 #'
 #' @return A real or a complex number.
@@ -40,10 +41,27 @@ lmvgamma <- function(x, p){
   .lmvgamma(x,p)
 }
 
+pochhammer <- function(z, n){
+  prod(seq_len(n)-1L + z)
+}
+
 #' @rdname mvgamma
 #' @export
 mvgamma <- function(x, p){
-  exp(lmvgamma(x, p))
+  stopifnot(
+    isPositiveInteger(p),
+    isNotNegativeInteger(x),
+    is.vector(x) && is.atomic(x),
+    is.numeric(x) || is.complex(x),
+    length(x) == 1L
+  )
+  if(Re(x)>0){
+    out <- exp(.lmvgamma(x, p))
+  }else{
+    n <- floor(-Re(x)) + 1
+    out <- exp(.lmvgamma(x+n, p)) / pochhammer(x, n)
+  }
+  out
 }
 
 
