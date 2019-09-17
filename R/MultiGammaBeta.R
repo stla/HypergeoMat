@@ -22,7 +22,7 @@ NULL
   if(is.numeric(x)){
     S <- sum(lgamma(x + (1L - seq_len(p))/2))
   }else{
-    S <- sum(lngamma_complex(Re(x) + (1L - seq_len(p))/2), rep(Im(x), p))
+    S <- sum(lngamma_complex(Re(x) + (1L - seq_len(p))/2, rep(Im(x), p)))
   }
   C + S
 }

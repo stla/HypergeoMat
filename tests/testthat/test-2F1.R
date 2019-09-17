@@ -32,4 +32,13 @@ test_that("Reflection formula", {
     hypergeomPFQ(100, c(c-a,c-b), (3+1)/2+c-a-b, diag(3)-X) *
     det(diag(3)-X)^(c-a-b)
   expect_equal(o1, o2, tolerance = 1e-4)
+  # with complex parameters
+  a <- 1 + 1.1i
+  o1 <- hypergeomPFQ(100, c(a,b), c, X)
+  o2 <- mvgamma(c,3)*mvgamma(c-a-b,3)/mvgamma(c-a,3)/mvgamma(c-b,3) *
+    hypergeomPFQ(100, c(a,b), a+b-c+(3+1)/2, diag(3)-X) +
+    mvgamma(c,3)*mvgamma(a+b-c,3)/mvgamma(a,3)/mvgamma(b,3) *
+    hypergeomPFQ(100, c(c-a,c-b), (3+1)/2+c-a-b, diag(3)-X) *
+    det(diag(3)-X)^(c-a-b)
+  expect_equal(o1, o2, tolerance = 1e-4)
 })
