@@ -27,7 +27,7 @@ NULL
   prod4 <- prod((l-f) / (l+h))
   out <- prod1/prod2 * prod3 * prod4
   return(ifelse(is.nan(out) || is.infinite(out), 0, out))
-}
+} # prod3 prod4 NaN pour alpha = Inf ; T -> 0; out*alpha -> prod1/prod2 / 2
 
 .betaratio <- function(kappa, mu, k, alpha){
   t <- k - alpha*mu[k]
@@ -38,7 +38,9 @@ NULL
   s <- seq_len(mu[k]-1L)
   w <- vapply(s, function(i) sum(mu >= i), integer(1L)) - t - alpha*s
   alpha * prod(u/(u+alpha-1)) * prod((v+alpha)/v) * prod((w+alpha)/w)
-}
+} # NaN pour alpha = Inf ; tend vers Inf
+  # 1er prod -> 0.5 (dépend de kappa et de mu[k]), 2ème prod -> 1; 3ème prod -> 4 (kappa=(5,2) mu = (4,1) et k=1)
+  # 3ème prod semble être mu[k]
 
 HypergeoI <- function(m, alpha, a, b, n, x){
   summation <- function(i, z, j){

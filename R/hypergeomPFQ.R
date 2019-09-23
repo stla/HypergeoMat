@@ -18,6 +18,12 @@
 #' @note The hypergeometric function of a matrix argument is usually defined
 #' for a symmetric real matrix or a Hermitian complex matrix.
 #'
+#' @details This is an implementation of Koev & Edelman's algorithm
+#' (see the reference). This algorithm is split into two parts: the case of
+#' a scalar matrix (multiple of an identity matrix) and the general case.
+#' The case of a scalar matrix is much faster (try e.g. \code{x = c(1,1,1)} vs
+#' \code{x = c(1,1,0.999)}).
+#'
 #' @references Plamen Koev and Alan Edelman.
 #' \emph{The Efficient Evaluation of the Hypergeometric Function of a Matrix Argument}.
 #' Mathematics of Computation, 75, 833-846, 2006.
