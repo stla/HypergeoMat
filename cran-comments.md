@@ -1,6 +1,7 @@
 ## Release summary 
 
-This is a new release. 
+This is a minor release. I fixed a bug in `lmvgamma`, 
+I generalized the `mvgamma` function and I added some unit tests.   
 
 
 ## Test environments
@@ -12,6 +13,3 @@ This is a new release.
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.

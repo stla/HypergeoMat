@@ -40,12 +40,12 @@
 #' hypergeomPFQ(m = 15, a = 3, b = NULL, x = X)
 #' det(diag(3)-X)^(-3)
 #' # Herz's relation for 1F1
-#' hypergeomPFQ(m=15, a = 2, b = 3, x = X)
-#' exp(sum(diag(X))) * hypergeomPFQ(m=15, a = 3-2, b = 3, x = -X)
+#' hypergeomPFQ(m = 15, a = 2, b = 3, x = X)
+#' exp(sum(diag(X))) * hypergeomPFQ(m = 15, a = 3-2, b = 3, x = -X)
 #' # Herz's relation for 2F1
 #' hypergeomPFQ(15, a = c(1,2), b = 3, x = X)
 #' det(diag(3)-X)^(-2) *
-#'   hypergeomPFQ(15, a = c(3-1,2), b = 3, -X%*%solve(diag(3)-X))
+#'   hypergeomPFQ(15, a = c(3-1,2), b = 3, -X %*% solve(diag(3)-X))
 hypergeomPFQ <- function(m, a, b, x, alpha = 2){
   stopifnot(
     isPositiveInteger(m),

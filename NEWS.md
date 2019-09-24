@@ -1,4 +1,4 @@
-# Version 1.0.1 (2019-09-17)
+# Version 1.0.1 (2019-09-24)
 
 - Fixed `lmvgamma` for complex values
 

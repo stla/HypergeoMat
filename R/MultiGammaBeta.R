@@ -50,10 +50,10 @@ pochhammer <- function(z, n){
 mvgamma <- function(x, p){
   stopifnot(
     isPositiveInteger(p),
-    isNotNegativeInteger(x),
     is.vector(x) && is.atomic(x),
     is.numeric(x) || is.complex(x),
-    length(x) == 1L
+    length(x) == 1L,
+    isNotNegativeInteger(x)
   )
   if(Re(x)>0){
     out <- exp(.lmvgamma(x, p))
