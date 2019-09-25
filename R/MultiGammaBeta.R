@@ -33,8 +33,7 @@ NULL
 lmvgamma <- function(x, p){
   stopifnot(
     isPositiveInteger(p),
-    is.vector(x) && is.atomic(x),
-    is.numeric(x) || is.complex(x),
+    isNumericOrComplex(x),
     length(x) == 1L,
     Re(x) > 0
   )
@@ -50,8 +49,7 @@ pochhammer <- function(z, n){
 mvgamma <- function(x, p){
   stopifnot(
     isPositiveInteger(p),
-    is.vector(x) && is.atomic(x),
-    is.numeric(x) || is.complex(x),
+    isNumericOrComplex(x),
     length(x) == 1L,
     isNotNegativeInteger(x)
   )
@@ -86,17 +84,19 @@ NULL
   .lmvgamma(a, p) + .lmvgamma(b, p) - .lmvgamma(a+b, p)
 }
 
+.mvbeta <- function(a, b, p){
+  exp(.lmvbeta(a, b, p))
+}
+
 #' @rdname mvbeta
 #' @export
 lmvbeta <- function(a, b, p){
   stopifnot(
     isPositiveInteger(p),
-    is.vector(a) && is.atomic(a),
-    is.numeric(a) || is.complex(a),
+    isNumericOrComplex(a),
     length(a) == 1L,
     Re(a) > 0,
-    is.vector(b) && is.atomic(b),
-    is.numeric(b) || is.complex(b),
+    isNumericOrComplex(b),
     length(b) == 1L,
     Re(b) > 0
   )

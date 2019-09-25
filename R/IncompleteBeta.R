@@ -31,15 +31,17 @@ IncBeta <- function(m, a, b, x){
     stopifnot(isSymmetricPositive(x))
     p <- nrow(x)
     stopifnot(isSymmetricPositive(diag(p)-x))
-  }else if(is.atomic(x)){
-    p <- length(x)
+  }else if(isNumericOrComplex(x)){
+    stopifnot((p <- length(x)) > 0L)
   }else{
     stop("Invalid `x` argument")
   }
   stopifnot(
-    is.numeric(a) || is.complex(a),
+    isNumericOrComplex(a),
+    length(a) == 1L,
     Re(a) > (p-1)/2,
-    is.numeric(b) || is.complex(b),
+    isNumericOrComplex(b),
+    length(b) == 1L,
     Re(b) > (p-1)/2
   )
   if(is.matrix(x)){
@@ -47,6 +49,6 @@ IncBeta <- function(m, a, b, x){
   }else{
     DET <- prod(x)
   }
-  DET^a / mvbeta(a, b, p) / a *
-    hypergeomPFQ(m, c(a, -b+(p+1)/2), a+(p+1)/2, x)
+  DET^a / .mvbeta(a, b, p) / a *
+    .hypergeomPFQ(m, c(a, -b+(p+1)/2), a+(p+1)/2, x, alpha = 2)
 }

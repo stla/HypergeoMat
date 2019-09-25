@@ -72,3 +72,7 @@ isSymmetricPositive <- function(M){
 isNotNegativeInteger <- function(z){
   Im(z) != 0 || Re(z)>0 || Re(z) != trunc(Re(z))
 }
+
+isNumericOrComplex <- function(x){
+  is.vector(x) && is.atomic(x) && (is.numeric(x) || is.complex(x))
+}

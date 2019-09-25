@@ -26,15 +26,14 @@ IncGamma <- function(m, a, x){
   if(is.matrix(x)){
 #    stopifnot(isSymmetric(x))
     p <- nrow(x)
-  }else if(is.vector(x) && is.atomic(x)){
-    p <- length(x)
+  }else if(isNumericOrComplex(x)){
+    stopifnot((p <- length(x)) > 0L)
   }else{
     stop("Invalid `x` argument")
   }
   stopifnot(
-    is.vector(a) && is.atomic(a),
+    isNumericOrComplex(a),
     length(a) == 1L,
-    is.numeric(a) || is.complex(a),
     Re(a) > (p-1)/2
   )
   if(is.matrix(x)){
@@ -42,5 +41,5 @@ IncGamma <- function(m, a, x){
   }else{
     DET <- prod(x)
   }
-  DET^a * mvbeta(a, (p+1)/2, p) * hypergeomPFQ(m, a, a+(p+1)/2, -x)
+  DET^a * .mvbeta(a, (p+1)/2, p) * .hypergeomPFQ(m, a, a+(p+1)/2, -x, alpha = 2)
 }
