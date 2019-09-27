@@ -13,3 +13,9 @@ I generalized the `mvgamma` function and I added some unit tests.
 
 ## R CMD check results
 
+Status: OK
+
+
+## Reverse dependencies
+
+There is no reverse dependency.
