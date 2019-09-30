@@ -6,4 +6,9 @@ test_that("Relation with Bessel-J for x scalar", {
   expected <- Bessel::BesselJ(t, nu)
   obtained <- BesselA(m=15, t^2/4, nu) * (t/2)^nu
   expect_equal(obtained, expected)
+  #
+  t <- 5
+  expected <- besselJ(t, nu)
+  obtained <- BesselA(m=15, t^2/4, nu) * (t/2)^nu
+  expect_equal(obtained, expected)
 })

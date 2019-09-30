@@ -18,6 +18,11 @@ test_that("Gauss formula", {
   o1 <- mvgamma(c,3)*mvgamma(c-a-b,3)/mvgamma(c-a,3)/mvgamma(c-b,3)
   o2 <- hypergeomPFQ(100, c(a,b), c, c(1,1,1))
   expect_equal(o1, o2, tolerance = 1e-6)
+  #
+  a <- 1i
+  o1 <- mvgamma(c,3)*mvgamma(c-a-b,3)/mvgamma(c-a,3)/mvgamma(c-b,3)
+  o2 <- hypergeomPFQ(100, c(a,b), c, c(1,1,1))
+  expect_equal(o1, o2, tolerance = 1e-6)
 })
 
 # test_that("Reflection formula", {

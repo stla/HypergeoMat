@@ -1,3 +1,5 @@
+#' @useDynLib HypergeoMat
+#' @importFrom Rcpp evalCpp
 #' @importFrom arrangements npartitions
 #' @importFrom utils head tail
 NULL

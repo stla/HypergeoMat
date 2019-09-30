@@ -3,3 +3,4 @@
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 inst/self
+inst/benchmarks
