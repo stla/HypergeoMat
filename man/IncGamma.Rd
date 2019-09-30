@@ -31,6 +31,7 @@ a <- 2
 x <- 1.5
 IncGamma(m = 15, a, x)
 gsl::gamma_inc_P(a, x)
+pgamma(x, shape = a, rate = 1)
 }
 \references{
 A. K. Gupta and D. K. Nagar.

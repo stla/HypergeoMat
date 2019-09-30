@@ -35,6 +35,7 @@ a <- 2; b <- 3
 x <- 0.75
 IncBeta(m = 15, a, b, x)
 gsl::beta_inc(a, b, x)
+pbeta(x, a, b)
 }
 \references{
 A. K. Gupta and D. K. Nagar.
