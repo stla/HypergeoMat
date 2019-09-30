@@ -1,5 +1,5 @@
 .R_hypergeomPFQ <- function(m, a, b, x, alpha){
-  stopifnot(isPositiveInteger(m)) 
+  stopifnot(isPositiveInteger(m))
   if(all(x == x[1L])){
     return(HypergeoI(m, alpha, a, b, length(x), x[1L]))
   }
@@ -83,6 +83,9 @@
 }
 
 .hypergeomPFQ <- function(m, a, b, x, alpha = 2){
+  if(is.matrix(x)){
+    x <- eigen(x, only.values = TRUE)$values
+  }
   if(is.complex(a) || is.complex(b) || is.complex(x)){
     .R_hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)
   }else{
@@ -148,25 +151,22 @@ hypergeomPFQ <- function(m, a, b, x, alpha = 2){
   stopifnot(
     is.null(a) || isNumericOrComplex(a),
     is.null(b) || isNumericOrComplex(b),
+    is.matrix(x) || isNumericOrComplex(x),
     is.vector(alpha) && is.atomic(alpha),
     length(alpha) == 1L,
     is.numeric(alpha),
     alpha > 0
   )
-  if(is.matrix(x)){
-    x <- eigen(x, only.values = TRUE)$values
-  }else{
-    stopifnot(isNumericOrComplex(x))
-  }
-  if(is.complex(a) || is.complex(b) || is.complex(x)){
-    .R_hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)
-  }else{
-    if(is.null(a)){
-      a <- numeric(0L)
-    }
-    if(is.null(b)){
-      b <- numeric(0L)
-    }
-    Rcpp_hypergeomPFQ(m = as.integer(m), a = a, b = b, x = x, alpha = alpha)
-  }
+  .hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)
+  # if(is.complex(a) || is.complex(b) || is.complex(x)){
+  #   .R_hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)
+  # }else{
+  #   if(is.null(a)){
+  #     a <- numeric(0L)
+  #   }
+  #   if(is.null(b)){
+  #     b <- numeric(0L)
+  #   }
+  #   Rcpp_hypergeomPFQ(m = as.integer(m), a = a, b = b, x = x, alpha = alpha)
+  # }
 }
