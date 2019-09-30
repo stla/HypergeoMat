@@ -82,7 +82,7 @@
   s
 }
 
-.hypergeomPFQ <- function(m, a, b, x, alpha = 2){
+.hypergeomPFQ <- function(m, a, b, x, alpha){
   if(is.matrix(x)){
     x <- eigen(x, only.values = TRUE)$values
   }
@@ -152,6 +152,7 @@ hypergeomPFQ <- function(m, a, b, x, alpha = 2){
     is.null(a) || isNumericOrComplex(a),
     is.null(b) || isNumericOrComplex(b),
     is.matrix(x) || isNumericOrComplex(x),
+    length(x) > 0L,
     is.vector(alpha) && is.atomic(alpha),
     length(alpha) == 1L,
     is.numeric(alpha),
