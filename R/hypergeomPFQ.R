@@ -160,15 +160,4 @@ hypergeomPFQ <- function(m, a, b, x, alpha = 2){
     alpha > 0
   )
   .hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)
-  # if(is.complex(a) || is.complex(b) || is.complex(x)){
-  #   .R_hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)
-  # }else{
-  #   if(is.null(a)){
-  #     a <- numeric(0L)
-  #   }
-  #   if(is.null(b)){
-  #     b <- numeric(0L)
-  #   }
-  #   Rcpp_hypergeomPFQ(m = as.integer(m), a = a, b = b, x = x, alpha = alpha)
-  # }
 }
