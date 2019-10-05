@@ -14,7 +14,7 @@ Dico DictParts(int m, int n){
   int fin = 0;
   for(int i = 0; i < n; i++){
     arma::Mat<int> NewLast = arma::Mat<int>(0,3);
-    for(int j = 0; j < Last.n_rows; j++){
+    for(unsigned j = 0; j < Last.n_rows; j++){
       int manque = Last(j,1);
       int l = min(manque, Last(j,2));
       if(l > 0){
@@ -244,7 +244,7 @@ double summationI(NumericVector a, NumericVector b, double x, int n,
   int lkappa = kappa.size();
   int kappai = 1;
   double s = 0.0;
-  while((i>0 || kappai<=j) && (i==0 || kappai <= kappa(i-1) && kappai <= j)){
+  while((i>0 || kappai<=j) && (i==0 || (kappai <= kappa(i-1) && kappai <= j))){
     IntegerVector kappaP(lkappa+1);
     for(int k=0; k < lkappa; k++){
       kappaP(k) = kappa(k);
