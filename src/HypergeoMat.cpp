@@ -4,7 +4,7 @@
 #include "RcppArmadillo.h"
 // [[Rcpp::depends(RcppArmadillo)]]
 #include "Dico.h"
-using namespace std; 
+using namespace std;
 using namespace Rcpp;
 
 
@@ -45,9 +45,9 @@ NumericVector dualPartition(IntegerVector kappa, int to = -1){
   if(l == 0){
     return NumericVector(0);
   }
-  int l0 = to == -1 ? kappa(0) : to; 
+  int l0 = to == -1 ? kappa(0) : to;
   NumericVector out = NumericVector(l0);
-  out(0) = (double)l; 
+  out(0) = (double)l;
   for(int i = 1; i < l0 ; i++){
     int s = 0.0;
     for(int j = 0; j < l; j++){
@@ -83,7 +83,7 @@ double product(NumericVector v){
 double betaratio(IntegerVector kappa, IntegerVector mu, int k, double alpha){
   double t = (double)k - alpha * (double)mu(k-1);
   NumericVector v;
-  if(k > 1){  
+  if(k > 1){
     NumericVector mu_dbl = as<NumericVector>(mu);
     NumericVector ss = sequence(1, k-1);
     v = alpha * mu_dbl[Range(0,k-2)] - ss + t;
@@ -101,7 +101,7 @@ double betaratio(IntegerVector kappa, IntegerVector mu, int k, double alpha){
   int l = mu(k-1) - 1;
   NumericVector w;
   if(l > 0){
-    NumericVector muPrime = dualPartition(mu, l); 
+    NumericVector muPrime = dualPartition(mu, l);
 //    NumericVector muPrime = as<NumericVector>(muDual);
     NumericVector lrange = sequence(1,l);
     w = muPrime - alpha*lrange - t;
@@ -156,11 +156,11 @@ double T_(double alpha, NumericVector a, NumericVector b, IntegerVector kappa){
 }
 
 
-void jack(double alpha, NumericVector x, unordered_map<int,int> dico, 
-                   int k, double beta, int c, int t, IntegerVector mu, 
-                   NumericMatrix& jarray, IntegerVector kappa, int nkappa){
+void jack(double alpha, NumericVector x, unordered_map<int,int> dico, int k,
+          double beta, int c, int t, IntegerVector mu, NumericMatrix& jarray,
+          IntegerVector kappa, int nkappa){
   int i0 = k > 1 ? k : 1;
-  int i1 = mu.size(); 
+  int i1 = mu.size();
   for(int i = i0; i <= i1; i++){
     int u = mu(i-1);
     if(mu.size() == i || u > mu(i)){
@@ -176,8 +176,8 @@ void jack(double alpha, NumericVector x, unordered_map<int,int> dico,
         jack(alpha, x, dico, i, gamma, c + 1, t, muP, jarray, kappa, nkappa);
       }else{
         if(nkappa > 1){
-          if(muP.size() > 0){ // && muP(0)>0){ 
-            jarray(nkappa-1, t-1) += gamma * jarray(nmuP-1, t-2) * 
+          if(muP.size() > 0){ // && muP(0)>0){
+            jarray(nkappa-1, t-1) += gamma * jarray(nmuP-1, t-2) *
               pow(x(t-1),c+1);
           }else{
             jarray(nkappa-1, t-1) += gamma * pow(x(t-1),c+1);
@@ -210,7 +210,7 @@ double summation(NumericVector a, NumericVector b, NumericVector x,
   int lkappaP = lkappa + 1;
   int kappai = 1;
   double s = 0.0;
-  while((i>0 || kappai<=j) && 
+  while((i>0 || kappai<=j) &&
         (i==0 || ((lkappa==0 || kappai <= kappa(lkappa-1)) && kappai <= j))){
     IntegerVector kappaP(lkappa+1);
     for(int k=0; k < lkappa; k++){
@@ -239,7 +239,7 @@ double summation(NumericVector a, NumericVector b, NumericVector x,
 }
 
 
-double summationI(NumericVector a, NumericVector b, double x, int n, 
+double summationI(NumericVector a, NumericVector b, double x, int n,
                   double alpha, int i, double z, int j, IntegerVector kappa){
   int lkappa = kappa.size();
   int kappai = 1;
@@ -262,14 +262,14 @@ double summationI(NumericVector a, NumericVector b, double x, int n,
 }
 
 
-double hypergeoI(int m, double alpha, NumericVector a, NumericVector b, 
+double hypergeoI(int m, double alpha, NumericVector a, NumericVector b,
                  int n, double x){
   return 1.0 + summationI(a, b, x, n, alpha, 0, 1.0, m, IntegerVector(0));
 }
 
 
 // [[Rcpp::export]]
-double Rcpp_hypergeomPFQ(int m, NumericVector a, NumericVector b, 
+double Rcpp_hypergeomPFQ(int m, NumericVector a, NumericVector b,
                          NumericVector x, double alpha){
   if(is_true(all(x == x(0)))){
     return hypergeoI(m, alpha, a, b, x.size(), x(0));
@@ -282,7 +282,7 @@ double Rcpp_hypergeomPFQ(int m, NumericVector a, NumericVector b,
     jarray(0,j) = xx(j);
   }
   IntegerVector emptyPart = IntegerVector(0);
-  double s = 
+  double s =
     summation(a, b, x, dict.dict, n, alpha, 0, 1.0, m, emptyPart, jarray);
   return 1.0 + s;
 }
