@@ -4,7 +4,7 @@
 #include "RcppArmadillo.h"
 // [[Rcpp::depends(RcppArmadillo)]]
 #include "Dico.h"
-using namespace std;
+using namespace std; 
 using namespace Rcpp;
 
 
@@ -45,9 +45,9 @@ NumericVector dualPartition(IntegerVector kappa, int to = -1){
   if(l == 0){
     return NumericVector(0);
   }
-  int l0 = to == -1 ? kappa(0) : to;
+  int l0 = to == -1 ? kappa(0) : to; 
   NumericVector out = NumericVector(l0);
-  out(0) = (double)l;
+  out(0) = (double)l; 
   for(int i = 1; i < l0 ; i++){
     int s = 0.0;
     for(int j = 0; j < l; j++){
@@ -62,7 +62,7 @@ NumericVector dualPartition(IntegerVector kappa, int to = -1){
 
 
 NumericVector sequence(int start, int end){
-  int lout = end-start+1;
+  int lout = end-start + 1;
   NumericVector out = NumericVector(lout);
   for(int i = 0; i < lout; i++){
     out(i) = (double)(i+start);
@@ -70,10 +70,10 @@ NumericVector sequence(int start, int end){
   return out;
 }
 
-
-double product(NumericVector v){
-  double out = 1;
-  for(int i = 0; i < v.size(); i++){
+template<typename T, typename R> // R: complex<double> / double ; T: ComplexVector / NumericVector
+R product(T v){
+  R out(1);
+  for(unsigned i = 0; i < v.size(); i++){
     out *= v(i);
   }
   return out;
@@ -83,7 +83,7 @@ double product(NumericVector v){
 double betaratio(IntegerVector kappa, IntegerVector mu, int k, double alpha){
   double t = (double)k - alpha * (double)mu(k-1);
   NumericVector v;
-  if(k > 1){
+  if(k > 1){  
     NumericVector mu_dbl = as<NumericVector>(mu);
     NumericVector ss = sequence(1, k-1);
     v = alpha * mu_dbl[Range(0,k-2)] - ss + t;
@@ -101,21 +101,20 @@ double betaratio(IntegerVector kappa, IntegerVector mu, int k, double alpha){
   int l = mu(k-1) - 1;
   NumericVector w;
   if(l > 0){
-    NumericVector muPrime = dualPartition(mu, l);
-//    NumericVector muPrime = as<NumericVector>(muDual);
+    NumericVector muPrime = dualPartition(mu, l); 
     NumericVector lrange = sequence(1,l);
     w = muPrime - alpha*lrange - t;
   }else{
     w = NumericVector(0);
   }
-  double prod1 = product(u / (u + alpha - 1.0));
-  double prod2 = product((v + alpha) / v);
-  double prod3 = product((w + alpha) / w);
+  double prod1 = product<NumericVector,double>(u / (u + alpha - 1.0));
+  double prod2 = product<NumericVector,double>((v + alpha) / v);
+  double prod3 = product<NumericVector,double>((w + alpha) / w);
   return alpha * prod1 * prod2 * prod3;
 }
 
-
-double T_(double alpha, NumericVector a, NumericVector b, IntegerVector kappa){
+template<typename T, typename R>
+R T_(double alpha, T a, T b, IntegerVector kappa){
   int lkappa = kappa.size();
   if(lkappa == 0 || kappa(0) == 0){
     return 1.0;
@@ -125,7 +124,9 @@ double T_(double alpha, NumericVector a, NumericVector b, IntegerVector kappa){
   double kappai_dbl = (double)kappai;
   double i = (double)lkappa;
   double c = kappai_dbl - 1.0 - i/alpha;
-  double prod1_den = product(b + c);
+  arma::Row<R> cc = T(b.size());
+  cc.fill(c);
+  R prod1_den = product<T,R>(b + cc);
   if(prod1_den == 0.0){
     return 0.0;
   }
@@ -149,22 +150,26 @@ double T_(double alpha, NumericVector a, NumericVector b, IntegerVector kappa){
   }
   NumericVector h = f + alpha;
   NumericVector l = h * f;
-  double prod1_num = product(a + c);
-  double prod2 = product((g - alpha) * e / g / (e + alpha));
-  double prod3 = product((l-f) / (l+h));
+  arma::Row<R> ccc = T(a.size());
+  ccc.fill(c);
+  R prod1_num = product<T,R>(a + ccc);
+  double prod2 = product<NumericVector,double>(
+                  (g - alpha) * e / g / (e + alpha)
+                 );
+  double prod3 = product<NumericVector,double>((l-f) / (l+h));
   return prod1_num/prod1_den * prod2 * prod3;
 }
 
-
-void jack(double alpha, NumericVector x, unordered_map<int,int> dico, int k,
-          double beta, int c, int t, IntegerVector mu, NumericMatrix& jarray,
-          IntegerVector kappa, int nkappa){
+template<typename U, typename S, typename R>
+void jack(double alpha, S x, unordered_map<int,int> dico, 
+                   int k, R beta, int c, int t, IntegerVector mu, 
+                   U& jarray, IntegerVector kappa, int nkappa){
   int i0 = k > 1 ? k : 1;
-  int i1 = mu.size();
+  int i1 = mu.size(); 
   for(int i = i0; i <= i1; i++){
     int u = mu(i-1);
     if(mu.size() == i || u > mu(i)){
-      double gamma = beta * betaratio(kappa, mu, i, alpha);
+      R gamma = beta * betaratio(kappa, mu, i, alpha);
       IntegerVector muP = clone(mu);
       muP(i-1) = u-1;
       muP = cleanPart(muP);
@@ -173,11 +178,12 @@ void jack(double alpha, NumericVector x, unordered_map<int,int> dico, int k,
         nmuP = dico.at(nmuP) + muP(j) - 1;
       }
       if(muP.size() >= i && u > 1){
-        jack(alpha, x, dico, i, gamma, c + 1, t, muP, jarray, kappa, nkappa);
+        jack<U,S,R>(alpha, x, dico, i, gamma, c + 1, t, muP, jarray, kappa, 
+                    nkappa);
       }else{
         if(nkappa > 1){
-          if(muP.size() > 0){ // && muP(0)>0){
-            jarray(nkappa-1, t-1) += gamma * jarray(nmuP-1, t-2) *
+          if(muP.size() > 0){
+            jarray(nkappa-1, t-1) += gamma * jarray(nmuP-1, t-2) * 
               pow(x(t-1),c+1);
           }else{
             jarray(nkappa-1, t-1) += gamma * pow(x(t-1),c+1);
@@ -199,18 +205,18 @@ void jack(double alpha, NumericVector x, unordered_map<int,int> dico, int k,
   }
 }
 
-
-double summation(NumericVector a, NumericVector b, NumericVector x,
-                 unordered_map<int,int> dico, int n, double alpha, int i,
-                 double z, int j, IntegerVector kappa, NumericMatrix &jarray){
+template<typename U, typename T, typename S, typename Rs, typename Rj, 
+         typename Rt> // U: Complex/NumericMatrix
+Rs summation(T a, T b, S x, unordered_map<int,int> dico, int n, double alpha, 
+             int i, Rs z, int j, IntegerVector kappa, U &jarray){
   if(i == n){
-    return 0.0;
+    return Rs(0);
   }
   int lkappa = kappa.size();
   int lkappaP = lkappa + 1;
   int kappai = 1;
-  double s = 0.0;
-  while((i>0 || kappai<=j) &&
+  Rs s(0);
+  while((i>0 || kappai<=j) && 
         (i==0 || ((lkappa==0 || kappai <= kappa(lkappa-1)) && kappai <= j))){
     IntegerVector kappaP(lkappa+1);
     for(int k=0; k < lkappa; k++){
@@ -221,39 +227,42 @@ double summation(NumericVector a, NumericVector b, NumericVector x,
     for(int k = 0; k < lkappaP; k++){
       nkappaP = dico.at(nkappaP) + kappaP(k) - 1;
     }
-    z = z * T_(alpha, a, b, kappaP);
+    z = z * T_<T,Rt>(alpha, a, b, kappaP);
     if(nkappaP > 1 && (lkappaP == 1 || kappaP(1) == 0)){
-      jarray(nkappaP-1, 0) = x(0) * (1.0 + alpha * (double)(kappaP(0)-1)) *
+      jarray(nkappaP-1, 0) = x(0) * (1.0 + alpha * (kappaP(0)-1)) *
         jarray(nkappaP-2, 0);
     }
     for(int t = 2; t <= n; t++){
-      jack(alpha, x, dico, 0, 1.0, 0, t, kappaP, jarray, kappaP, nkappaP);
+      jack<U,S,Rj>(alpha, x, dico, 0, 1.0, 0, t, kappaP, jarray, kappaP, 
+                  nkappaP);
     }
     s += z * jarray(nkappaP-1, n-1);
     if(j > kappai && i <= n){
-      s += summation(a, b, x, dico, n, alpha, i+1, z, j-kappai, kappaP, jarray);
+      s += summation<U,T,S,Rs,Rj,Rt>(a, b, x, dico, n, alpha, i+1, z, j-kappai, 
+                                     kappaP, jarray);
     }
     kappai += 1;
   }
   return s;
 }
 
-
-double summationI(NumericVector a, NumericVector b, double x, int n,
-                  double alpha, int i, double z, int j, IntegerVector kappa){
+template<typename T, typename S, typename R, typename Rt>
+R summationI(T a, T b, S x, int n, double alpha, int i, R z, int j, 
+             IntegerVector kappa){
   int lkappa = kappa.size();
   int kappai = 1;
-  double s = 0.0;
+  R s(0);
   while((i>0 || kappai<=j) && (i==0 || (kappai <= kappa(i-1) && kappai <= j))){
     IntegerVector kappaP(lkappa+1);
     for(int k=0; k < lkappa; k++){
       kappaP(k) = kappa(k);
     }
     kappaP(lkappa) = kappai;
-    double t = T_(alpha, a, b, kappaP);
+    Rt t = T_<T,Rt>(alpha, a, b, kappaP);
     z = z * x * t * ((double)(n-i) + alpha * (double)(kappai-1));
     if(j > kappai && i <= n){
-      s += summationI(a, b, x, n, alpha, (i+1), z, (j-kappai), kappaP);
+      s += 
+        summationI<T,S,R,Rt>(a, b, x, n, alpha, (i+1), z, (j-kappai), kappaP);
     }
     s += z;
     kappai += 1;
@@ -261,29 +270,62 @@ double summationI(NumericVector a, NumericVector b, double x, int n,
   return s;
 }
 
-
-double hypergeoI(int m, double alpha, NumericVector a, NumericVector b,
-                 int n, double x){
-  return 1.0 + summationI(a, b, x, n, alpha, 0, 1.0, m, IntegerVector(0));
+template<typename T, typename S, typename R, typename Rt>
+R hypergeoI(int m, double alpha, T a, T b, int n, S x){
+  return 1.0 + 
+    summationI<T,S,R,Rt>(a, b, x, n, alpha, 0, R(1), m, IntegerVector(0));
 }
 
 
-// [[Rcpp::export]]
-double Rcpp_hypergeomPFQ(int m, NumericVector a, NumericVector b,
-                         NumericVector x, double alpha){
-  if(is_true(all(x == x(0)))){
-    return hypergeoI(m, alpha, a, b, x.size(), x(0));
+template<typename U, typename T, typename S, typename Sx, typename Rs, 
+         typename Rj, typename Rt>
+Rs hypergeom(int m, T a, T b, S x, double alpha){
+  if(arma::all(x == x(0))){
+    return hypergeoI<T,Sx,Rs,Rt>(m, alpha, a, b, x.size(), x(0));
   }
   int n = x.size();
   Dico dict = DictParts(m, n);
-  NumericMatrix jarray(dict.last, n);
-  NumericVector xx = cumsum(x);
+  U jarray(dict.last, n);
+  jarray.fill(0);
+  S xx = arma::cumsum(x);
   for(int j = 0; j < n; j++){
     jarray(0,j) = xx(j);
   }
   IntegerVector emptyPart = IntegerVector(0);
-  double s =
-    summation(a, b, x, dict.dict, n, alpha, 0, 1.0, m, emptyPart, jarray);
-  return 1.0 + s;
+  Rs s = summation<U,T,S,Rs,Rj,Rt>(a, b, x, dict.dict, n, alpha, 0, (Rs)1.0, m, 
+                           emptyPart, jarray);
+  return (Rs)1.0 + s;
 }
 
+// [[Rcpp::export]]
+arma::cx_double hypergeom_Cplx_Cplx(int m, arma::cx_rowvec a, arma::cx_rowvec b,
+                                    arma::cx_rowvec x, double alpha){
+  return 
+    hypergeom<arma::cx_mat, arma::cx_rowvec, arma::cx_rowvec, arma::cx_double, 
+              arma::cx_double, arma::cx_double, arma::cx_double>(m, a, b, x, 
+                                                                 alpha);
+}
+
+// [[Rcpp::export]]
+double hypergeom_R_R(int m, arma::rowvec a, arma::rowvec b, arma::rowvec x, 
+                     double alpha){
+  return 
+    hypergeom<arma::mat, arma::rowvec, arma::rowvec, double, double, double, 
+              double>(m, a, b, x, alpha);
+}
+
+// [[Rcpp::export]]
+arma::cx_double hypergeom_Cplx_R(int m, arma::cx_rowvec a, arma::cx_rowvec b,
+                                    arma::rowvec x, double alpha){
+  return 
+    hypergeom<arma::mat, arma::cx_rowvec, arma::rowvec, double, 
+              arma::cx_double, double, arma::cx_double>(m, a, b, x, alpha);
+}
+
+// [[Rcpp::export]]
+arma::cx_double hypergeom_R_Cplx(int m, arma::rowvec a, arma::rowvec b,
+                                 arma::cx_rowvec x, double alpha){
+  return
+    hypergeom<arma::cx_mat, arma::rowvec, arma::cx_rowvec, arma::cx_double,
+              arma::cx_double, arma::cx_double, double>(m, a, b, x, alpha);
+}

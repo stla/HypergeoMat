@@ -1,5 +1,10 @@
 context("Errors")
 
+test_that("errors on m", {
+  expect_error(hypergeomPFQ(m = -1, a = c(1,2), b = c(3,4), x = c(5,6)))
+  expect_error(hypergeomPFQ(m = c(1,2), a = c(1,2), b = c(3,4), x = c(5,6)))
+})
+
 test_that("errors on alpha", {
   expect_error(hypergeomPFQ(m = 5, a = c(1,2), b = c(3,4), x = c(5,6),
                             alpha = "a"))
@@ -14,6 +19,8 @@ test_that("errors on x", {
                             x = cbind(c(1,1),c(2,3),c(4,5))))
   expect_error(hypergeomPFQ(m = 5, a = c(1,2), b = c(3,4), x = "a"))
   expect_error(hypergeomPFQ(m = 5, a = c(1,2), b = c(3,4), x = list(5,6)))
+  expect_error(hypergeomPFQ(m = 5, a = c(1,2), b = c(3,4), x = NULL))
+  expect_error(hypergeomPFQ(m = 5, a = c(1,2), b = c(3,4), x = numeric(0L)))
 })
 
 test_that("errors lmvgamma", {
@@ -36,8 +43,8 @@ test_that("errors mvbeta", {
 test_that("errors IncBeta", {
   expect_error(IncBeta(m = 5, a = 0.5, b = 2, x = c(1,2,3)))
   expect_error(IncBeta(m = 5, a = c(1,5), b = 2, x = c(1,2,3)))
-  expect_error(IncBeta(m=5, a = 5, b = 2, x = diag(c(0.5,-0.5))))
-  expect_error(IncBeta(m=5, a = 5, b = 2, x = diag(c(1.1,0.5))))
+  expect_error(IncBeta(m = 5, a = 5, b = 2, x = diag(c(0.5,-0.5))))
+  expect_error(IncBeta(m = 5, a = 5, b = 2, x = diag(c(1.1,0.5))))
 })
 
 test_that("errors IncGamma", {

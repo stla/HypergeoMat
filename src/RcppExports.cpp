@@ -6,24 +6,72 @@
 
 using namespace Rcpp;
 
-// Rcpp_hypergeomPFQ
-double Rcpp_hypergeomPFQ(int m, NumericVector a, NumericVector b, NumericVector x, double alpha);
-RcppExport SEXP _HypergeoMat_Rcpp_hypergeomPFQ(SEXP mSEXP, SEXP aSEXP, SEXP bSEXP, SEXP xSEXP, SEXP alphaSEXP) {
+// hypergeom_Cplx_Cplx
+arma::cx_double hypergeom_Cplx_Cplx(int m, arma::cx_rowvec a, arma::cx_rowvec b, arma::cx_rowvec x, double alpha);
+RcppExport SEXP _HypergeoMat_hypergeom_Cplx_Cplx(SEXP mSEXP, SEXP aSEXP, SEXP bSEXP, SEXP xSEXP, SEXP alphaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type m(mSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type b(bSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::cx_rowvec >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::cx_rowvec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::cx_rowvec >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
-    rcpp_result_gen = Rcpp::wrap(Rcpp_hypergeomPFQ(m, a, b, x, alpha));
+    rcpp_result_gen = Rcpp::wrap(hypergeom_Cplx_Cplx(m, a, b, x, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hypergeom_R_R
+double hypergeom_R_R(int m, arma::rowvec a, arma::rowvec b, arma::rowvec x, double alpha);
+RcppExport SEXP _HypergeoMat_hypergeom_R_R(SEXP mSEXP, SEXP aSEXP, SEXP bSEXP, SEXP xSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(hypergeom_R_R(m, a, b, x, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hypergeom_Cplx_R
+arma::cx_double hypergeom_Cplx_R(int m, arma::cx_rowvec a, arma::cx_rowvec b, arma::rowvec x, double alpha);
+RcppExport SEXP _HypergeoMat_hypergeom_Cplx_R(SEXP mSEXP, SEXP aSEXP, SEXP bSEXP, SEXP xSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< arma::cx_rowvec >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::cx_rowvec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(hypergeom_Cplx_R(m, a, b, x, alpha));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hypergeom_R_Cplx
+arma::cx_double hypergeom_R_Cplx(int m, arma::rowvec a, arma::rowvec b, arma::cx_rowvec x, double alpha);
+RcppExport SEXP _HypergeoMat_hypergeom_R_Cplx(SEXP mSEXP, SEXP aSEXP, SEXP bSEXP, SEXP xSEXP, SEXP alphaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type m(mSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::cx_rowvec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
+    rcpp_result_gen = Rcpp::wrap(hypergeom_R_Cplx(m, a, b, x, alpha));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_HypergeoMat_Rcpp_hypergeomPFQ", (DL_FUNC) &_HypergeoMat_Rcpp_hypergeomPFQ, 5},
+    {"_HypergeoMat_hypergeom_Cplx_Cplx", (DL_FUNC) &_HypergeoMat_hypergeom_Cplx_Cplx, 5},
+    {"_HypergeoMat_hypergeom_R_R", (DL_FUNC) &_HypergeoMat_hypergeom_R_R, 5},
+    {"_HypergeoMat_hypergeom_Cplx_R", (DL_FUNC) &_HypergeoMat_hypergeom_Cplx_R, 5},
+    {"_HypergeoMat_hypergeom_R_Cplx", (DL_FUNC) &_HypergeoMat_hypergeom_R_Cplx, 5},
     {NULL, NULL, 0}
 };
 

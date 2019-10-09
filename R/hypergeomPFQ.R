@@ -1,100 +1,25 @@
-.R_hypergeomPFQ <- function(m, a, b, x, alpha){
-  if(all(x == x[1L])){
-    return(HypergeoI(m, alpha, a, b, length(x), x[1L]))
-  }
-  #
-  summation <- function(i, z, j){
-    jack <- function(k, beta, c, t, mu, Nmu){
-      for(i in max(k,1L) : sum(mu > 0L)){
-        if(length(mu) == i || mu[i] > mu[i+1L]){
-          d <- Nmu
-          gamma <- beta * .betaratio(kappa, mu, i, alpha)
-          mu[i] <- mu[i] - 1L
-          Nmu <- .Nkappa(mu) - 1L
-          if(mu[i] > 0L){
-            jack(i, gamma, c+1L, t, mu, Nmu)
-          }else{
-            if(Nkappa > 1L){
-              J[Nkappa,t] <<- J[Nkappa,t] + gamma*x[t]^(c+1L) *
-                ifelse(mu[1]>0L, J[Nmu,t-1L], 1)
-            }
-          }
-          mu[i] <- mu[i] + 1L
-          Nmu <- d
-        }
-      }
-      if(k == 0L){
-        if(Nkappa>1L) J[Nkappa,t] <<- J[Nkappa,t] + J[Nkappa,t-1L]
-      }else{
-        J[Nkappa,t] <<- J[Nkappa,t] + beta * x[t]^c * J[Nmu,t-1L]
-      }
-    }
-    # end jack
-    r <- if(i == 1L) j else min(kappa[i-1L],j)
-    for(kappai in seq_len(r)){
-      kappa[i] <<- kappai
-      Nkappa <- .Nkappa(kappa) - 1L
-      z <- z * .T(alpha, a, b, kappa, i)
-      if(Nkappa > 1L && (length(kappa) == 1L || kappa[2L] == 0L)){
-        J[Nkappa,1L] <<- x[1L]*(1+alpha*(kappa[1L]-1L)) * J[Nkappa-1L,1L]
-      }
-      for(t in 2L:n) jack(0L, 1, 0L, t, kappa, Nkappa)
-      s <<- s + z * J[Nkappa,n]
-      if(j > kappai && i < n){
-        summation(i+1L, z, j-kappai)
-      }
-    }
-    kappa[i] <<- 0L
-  } # end summation
-  #
-  #
-  n <- length(x)
-  Pmn <- .P(m,n)
-  s <- 1
-  J <- matrix(0, Pmn, n)
-  J[1L,] <- cumsum(x)
-  kappa <- integer(0L)
-  #
-  D <- rep(NA_integer_, Pmn)
-  Last <- t(as.integer(c(0,m,m)))
-  fin <- 0L
-  for(. in 1L:n){
-    NewLast <- matrix(NA_integer_, nrow = 0L, ncol = 3L)
-    for(i in 1L:nrow(Last)){
-      manque <- Last[i,2L]
-      l <- min(manque, Last[i,3L])
-      if(l > 0L){
-        D[Last[i,1L]+1L] <- fin + 1L
-        s <- 1L:l
-        NewLast <- rbind(NewLast, cbind(fin+s, manque-s, s))
-        fin <- fin + l
-      }
-    }
-    Last <- NewLast
-  }
-  .Nkappa <- function(kappa){
-    kappa <- kappa[kappa>0L]
-    if(length(kappa) == 0L) return(1L)
-    D[.Nkappa(head(kappa,-1L))] + tail(kappa,1L)
-  }
-  summation(1L, 1, m)
-  s
-}
-
 .hypergeomPFQ <- function(m, a, b, x, alpha){
   if(is.matrix(x)){
     x <- eigen(x, only.values = TRUE)$values
   }
-  if(is.complex(a) || is.complex(b) || is.complex(x)){
-    .R_hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)
+  if(is.null(a)){
+    a <- numeric(0L)
+  }
+  if(is.null(b)){
+    b <- numeric(0L)
+  }
+  if(is.complex(a) || is.complex(b)){
+    if(is.complex(x)){
+      hypergeom_Cplx_Cplx(m = m, a = a, b = b, x = x, alpha = alpha)
+    }else{
+      hypergeom_Cplx_R(m = m, a = a, b = b, x = x, alpha = alpha)
+    }
   }else{
-    if(is.null(a)){
-      a <- numeric(0L)
+    if(is.complex(x)){
+      hypergeom_R_Cplx(m = m, a = a, b = b, x = x, alpha = alpha)
+    }else{
+      hypergeom_R_R(m = m, a = a, b = b, x = x, alpha = alpha)
     }
-    if(is.null(b)){
-      b <- numeric(0L)
-    }
-    Rcpp_hypergeomPFQ(m = as.integer(m), a = a, b = b, x = x, alpha = alpha)
   }
 }
 
@@ -148,11 +73,11 @@
 #'   hypergeomPFQ(10, a = c(3-1,2), b = 3, -X %*% solve(diag(3)-X))
 hypergeomPFQ <- function(m, a, b, x, alpha = 2){
   stopifnot(
-    isPositiveInteger(m),
+    isPositiveInteger(m), 
     is.null(a) || isNumericOrComplex(a),
     is.null(b) || isNumericOrComplex(b),
     is.matrix(x) || isNumericOrComplex(x),
-    length(x) > 0L,
+    length(x) > 0L, 
     is.vector(alpha) && is.atomic(alpha),
     length(alpha) == 1L,
     is.numeric(alpha),

@@ -1,3 +1,9 @@
+# Version 3.0.0 (2019-10-10)
+
+The package now uses `Rcpp` to evaluate the hypergeometric function in all cases, 
+for real or complex values of the arguments.
+
+
 # Version 2.0.0 (2019-10-09)
 
 The package now uses `Rcpp` to evaluate the hypergeometric function when none 
