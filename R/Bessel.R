@@ -27,6 +27,7 @@
 #' BesselA(m=15, t^2/4, nu) * (t/2)^nu
 BesselA <- function(m, x, nu){
   stopifnot(
+    isPositiveInteger(m),
     isNumericOrComplex(nu),
     length(nu) == 1L,
     Re(nu) > -1

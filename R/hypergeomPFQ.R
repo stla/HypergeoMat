@@ -1,5 +1,4 @@
 .R_hypergeomPFQ <- function(m, a, b, x, alpha){
-  stopifnot(isPositiveInteger(m))
   if(all(x == x[1L])){
     return(HypergeoI(m, alpha, a, b, length(x), x[1L]))
   }
@@ -17,7 +16,7 @@
           }else{
             if(Nkappa > 1L){
               J[Nkappa,t] <<- J[Nkappa,t] + gamma*x[t]^(c+1L) *
-                ifelse(mu[1]>0L, J[Nmu,t-1L], 1) #any(mu>0L) <=> mu[1]>0L ?
+                ifelse(mu[1]>0L, J[Nmu,t-1L], 1)
             }
           }
           mu[i] <- mu[i] + 1L

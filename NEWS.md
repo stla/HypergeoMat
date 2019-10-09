@@ -1,4 +1,4 @@
-# Version 2.0.0 (2019-10-05)
+# Version 2.0.0 (2019-10-09)
 
 The package now uses `Rcpp` to evaluate the hypergeometric function when none 
 of its arguments is a complex number.

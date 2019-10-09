@@ -33,6 +33,7 @@ IncGamma <- function(m, a, x){
     stop("Invalid `x` argument")
   }
   stopifnot(
+    isPositiveInteger(m),
     isNumericOrComplex(a),
     length(a) == 1L,
     Re(a) > (p-1)/2
