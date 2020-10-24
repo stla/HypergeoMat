@@ -1,3 +1,8 @@
+# Version 3.1.0 (2020-10-24)
+
+Speed improvement.
+
+
 # Version 3.0.0 (2019-10-26)
 
 The package now uses `Rcpp` to evaluate the hypergeometric function in all cases, 
