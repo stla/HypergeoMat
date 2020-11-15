@@ -22,15 +22,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // hypergeom_R_R
-double hypergeom_R_R(int m, arma::rowvec a, arma::rowvec b, arma::rowvec x, double alpha);
+double hypergeom_R_R(int m, arma::rowvec& a, arma::rowvec& b, arma::rowvec& x, double alpha);
 RcppExport SEXP _HypergeoMat_hypergeom_R_R(SEXP mSEXP, SEXP aSEXP, SEXP bSEXP, SEXP xSEXP, SEXP alphaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type m(mSEXP);
-    Rcpp::traits::input_parameter< arma::rowvec >::type a(aSEXP);
-    Rcpp::traits::input_parameter< arma::rowvec >::type b(bSEXP);
-    Rcpp::traits::input_parameter< arma::rowvec >::type x(xSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec& >::type a(aSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec& >::type b(bSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec& >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type alpha(alphaSEXP);
     rcpp_result_gen = Rcpp::wrap(hypergeom_R_R(m, a, b, x, alpha));
     return rcpp_result_gen;

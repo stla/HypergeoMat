@@ -82,6 +82,15 @@ R product(T v){
   return out;
 }
 
+template<typename T, typename R>
+R productArma(T v){
+  R out(1);
+  for(unsigned i = 0; i < v.size(); i++){
+    out *= v.at(i);
+  }
+  return out;
+}
+
 
 double betaratio(IntegerVector kappa, IntegerVector mu, int k, double alpha){
   double t = (double)k - alpha * (double)mu(k-1);
@@ -129,7 +138,7 @@ R T_(double alpha, T a, T b, IntegerVector kappa){
   double c = kappai_dbl - 1.0 - i/alpha;
   arma::Row<R> cc = T(b.size());
   cc.fill(c);
-  R prod1_den = product<T,R>(b + cc);
+  R prod1_den = productArma<T,R>(b + cc);
   if(prod1_den == 0.0){
     return 0.0;
   }
@@ -155,7 +164,7 @@ R T_(double alpha, T a, T b, IntegerVector kappa){
   NumericVector l = h * f;
   arma::Row<R> ccc = T(a.size());
   ccc.fill(c);
-  R prod1_num = product<T,R>(a + ccc);
+  R prod1_num = productArma<T,R>(a + ccc);
   double prod2 = product<NumericVector,double>(
                   (g - alpha) * e / g / (e + alpha)
                  );
@@ -186,10 +195,10 @@ void jack(double alpha, S x, unordered_map<int,int> dico,
       }else{
         if(nkappa > 1){
           if(muP.size() > 0){
-            jarray(nkappa-1, t-1) += gamma * jarray(nmuP-1, t-2) *
+            jarray.at(nkappa-1, t-1) += gamma * jarray.at(nmuP-1, t-2) *
               pow(x.at(t-1),c+1);
           }else{
-            jarray(nkappa-1, t-1) += gamma * pow(x.at(t-1),c+1);
+            jarray.at(nkappa-1, t-1) += gamma * pow(x.at(t-1),c+1);
           }
         }
       }
@@ -197,21 +206,21 @@ void jack(double alpha, S x, unordered_map<int,int> dico,
   }
   if(k == 0){
     if(nkappa > 1){
-      jarray(nkappa-1, t-1) += jarray(nkappa-1, t-2);
+      jarray.at(nkappa-1, t-1) += jarray.at(nkappa-1, t-2);
     }
   }else{
     int nmu = 0;
     for(int i = 0; i < mu.size(); i++){
       nmu = dico.at(nmu) + mu(i) - 1;
     }
-    jarray(nkappa-1, t-1) += beta * pow(x.at(t-1),c) * jarray(nmu - 1, t-2);
+    jarray.at(nkappa-1, t-1) += beta * pow(x.at(t-1),c) * jarray.at(nmu - 1, t-2);
   }
 }
 
 template<typename U, typename T, typename S, typename Rs, typename Rj,
          typename Rt> // U: Complex/NumericMatrix
 Rs summation(T a, T b, S x, unordered_map<int,int> dico, int n, double alpha,
-             int i, Rs z, int j, IntegerVector kappa, U &jarray){
+             int i, Rs z, int j, IntegerVector kappa, U& jarray){
   if(i == n){
     return Rs(0);
   }
@@ -310,7 +319,7 @@ arma::cx_double hypergeom_Cplx_Cplx(int m, arma::cx_rowvec a, arma::cx_rowvec b,
 }
 
 // [[Rcpp::export]]
-double hypergeom_R_R(int m, arma::rowvec a, arma::rowvec b, arma::rowvec x,
+double hypergeom_R_R(int m, arma::rowvec& a, arma::rowvec& b, arma::rowvec& x,
                      double alpha){
   return
     hypergeom<arma::mat, arma::rowvec, arma::rowvec, double, double, double,
