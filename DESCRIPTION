@@ -1,16 +1,14 @@
 Package: HypergeoMat
 Type: Package
 Title: Hypergeometric Function of a Matrix Argument
-Version: 3.1.0.9000
-Date: 2020-11-15
+Version: 3.1.0.9001
 Author: Stéphane Laurent
 Maintainer: Stéphane Laurent <laurent_step@outlook.fr>
 Description: Evaluates the hypergeometric functions of a matrix argument, which appear in random matrix theory. This is an implementation of Koev & Edelman's algorithm (2006) <doi:10.1090/S0025-5718-06-01824-2>. 
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Imports: Rcpp (>= 1.0.2), gsl
-LinkingTo: Rcpp, RcppArmadillo
+LinkingTo: Rcpp, RcppEigen
 Suggests: 
     testthat,
     Bessel,
