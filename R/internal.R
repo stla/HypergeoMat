@@ -21,3 +21,7 @@ isNumericOrComplex <- function(x){
 isNumber <- function(x){
   is.vector(x) && is.atomic(x) && is.numeric(x) && length(x) == 1L && !is.na(x)
 }
+
+isSquareMatrix <- function(M){
+  is.matrix(M) && (nrow(M) == ncol(M)) && (is.numeric(M) || is.complex(M))
+}

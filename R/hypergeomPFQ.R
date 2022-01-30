@@ -78,7 +78,7 @@ hypergeomPFQ <- function(m, a, b, x, alpha = 2){
     !anyNA(a),
     is.null(b) || isNumericOrComplex(b),
     !anyNA(b),
-    is.matrix(x) || isNumericOrComplex(x),
+    isSquareMatrix(x) || isNumericOrComplex(x),
     length(x) != 0L,
     !anyNA(x),
     isNumber(alpha),
