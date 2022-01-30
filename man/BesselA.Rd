@@ -22,7 +22,7 @@ Evaluates the type one Bessel function of Herz.
 }
 \note{
 This function is usually defined
-for a symmetric real matrix or a Hermitian complex matrix.
+  for a symmetric real matrix or a Hermitian complex matrix.
 }
 \examples{
 # for a scalar x, the relation with the Bessel J-function:

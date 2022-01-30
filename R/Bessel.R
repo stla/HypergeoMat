@@ -5,13 +5,13 @@
 #' @param m truncation weight of the summation, a positive integer
 #' @param nu the order parameter, real or complex number with \code{Re(nu)>-1}
 #' @param x either a real or complex square matrix,
-#' or a numeric or complex vector, the eigenvalues of the matrix
+#'   or a numeric or complex vector, the eigenvalues of the matrix
 #'
 #' @return A real or complex number.
 #' @export
 #'
 #' @note This function is usually defined
-#' for a symmetric real matrix or a Hermitian complex matrix.
+#'   for a symmetric real matrix or a Hermitian complex matrix.
 #'
 #' @references A. K. Gupta and D. K. Nagar.
 #' \emph{Matrix variate distributions}. Chapman and Hall, 1999.
@@ -28,16 +28,17 @@
 BesselA <- function(m, x, nu){
   stopifnot(
     isPositiveInteger(m),
-    isNumericOrComplex(nu),
-    length(nu) == 1L,
+    isScalar(nu),
     Re(nu) > -1
   )
-  if(is.matrix(x)){
+  if(isSquareMatrix(x)){
+    stopifnot(!anyNA(x))
     p <- nrow(x)
   }else if(isNumericOrComplex(x)){
+    stopifnot(!anyNA(x))
     p <- length(x)
   }else{
-    stop("Invalid `x` argument")
+    stop("Invalid `x` argument.")
   }
   .hypergeomPFQ(m, NULL, nu+(p+1)/2, -x, alpha = 2) / mvgamma(nu+(p+1)/2, p)
 }
