@@ -10,7 +10,7 @@ lmvbeta(a, b, p)
 mvbeta(a, b, p)
 }
 \arguments{
-\item{a, b}{real or complex numbers with \code{Re(a)>0}, \code{Re(b)>0}}
+\item{a, b}{real or complex numbers with \code{Re(a)>0} and \code{Re(b)>0}}
 
 \item{p}{a positive integer, the dimension}
 }
@@ -19,7 +19,7 @@ A real or a complex number.
 }
 \description{
 The multivariate Beta function (\code{mvbeta}) and
-its logarithm (\code{lmvbeta}).
+  its logarithm (\code{lmvbeta}).
 }
 \examples{
 a <- 5; b <- 4; p <- 3

@@ -20,7 +20,7 @@ A real or a complex number.
 }
 \description{
 The multivariate Gamma function (\code{mvgamma}) and
-its logarithm (\code{lmvgamma}).
+  its logarithm (\code{lmvgamma}).
 }
 \examples{
 x <- 5

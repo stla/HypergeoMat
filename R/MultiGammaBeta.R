@@ -1,12 +1,12 @@
 #' Multivariate Gamma function (of complex variable)
 #'
 #' @description The multivariate Gamma function (\code{mvgamma}) and
-#' its logarithm (\code{lmvgamma}).
+#'   its logarithm (\code{lmvgamma}).
 #'
 #' @name mvgamma
 #'
 #' @param x a real or a complex number; \code{Re(x)>0} for \code{lmvgamma} and
-#' \code{x} must not be a negative integer for \code{mvgamma}
+#'   \code{x} must not be a negative integer for \code{mvgamma}
 #' @param p a positive integer, the dimension
 #'
 #' @return A real or a complex number.
@@ -33,11 +33,10 @@ NULL
 lmvgamma <- function(x, p){
   stopifnot(
     isPositiveInteger(p),
-    isNumericOrComplex(x),
-    length(x) == 1L,
+    isScalar(x),
     Re(x) > 0
   )
-  .lmvgamma(x,p)
+  .lmvgamma(x, p)
 }
 
 pochhammer <- function(z, n){
@@ -49,8 +48,7 @@ pochhammer <- function(z, n){
 mvgamma <- function(x, p){
   stopifnot(
     isPositiveInteger(p),
-    isNumericOrComplex(x),
-    length(x) == 1L,
+    isScalar(x),
     isNotNegativeInteger(x)
   )
   if(Re(x)>0){
@@ -66,11 +64,11 @@ mvgamma <- function(x, p){
 #' Multivariate Beta function (of complex variable)
 #'
 #' @description The multivariate Beta function (\code{mvbeta}) and
-#' its logarithm (\code{lmvbeta}).
+#'   its logarithm (\code{lmvbeta}).
 #'
 #' @name mvbeta
 #'
-#' @param a,b real or complex numbers with \code{Re(a)>0}, \code{Re(b)>0}
+#' @param a,b real or complex numbers with \code{Re(a)>0} and \code{Re(b)>0}
 #' @param p a positive integer, the dimension
 #'
 #' @return A real or a complex number.
@@ -93,11 +91,9 @@ NULL
 lmvbeta <- function(a, b, p){
   stopifnot(
     isPositiveInteger(p),
-    isNumericOrComplex(a),
-    length(a) == 1L,
+    isScalar(a),
     Re(a) > 0,
-    isNumericOrComplex(b),
-    length(b) == 1L,
+    isScalar(b),
     Re(b) > 0
   )
   .lmvbeta(a, b, p)
