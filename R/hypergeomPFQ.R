@@ -73,14 +73,15 @@
 #'   hypergeomPFQ(10, a = c(3-1,2), b = 3, -X %*% solve(diag(3)-X))
 hypergeomPFQ <- function(m, a, b, x, alpha = 2){
   stopifnot(
-    isPositiveInteger(m), 
+    isPositiveInteger(m),
     is.null(a) || isNumericOrComplex(a),
+    !anyNA(a),
     is.null(b) || isNumericOrComplex(b),
+    !anyNA(b),
     is.matrix(x) || isNumericOrComplex(x),
-    length(x) > 0L, 
-    is.vector(alpha) && is.atomic(alpha),
-    length(alpha) == 1L,
-    is.numeric(alpha),
+    length(x) != 0L,
+    !anyNA(x),
+    isNumber(alpha),
     alpha > 0
   )
   .hypergeomPFQ(m = m, a = a, b = b, x = x, alpha = alpha)

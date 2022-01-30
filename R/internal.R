@@ -17,3 +17,7 @@ isNotNegativeInteger <- function(z){
 isNumericOrComplex <- function(x){
   is.vector(x) && is.atomic(x) && (is.numeric(x) || is.complex(x))
 }
+
+isNumber <- function(x){
+  is.vector(x) && is.atomic(x) && is.numeric(x) && length(x) == 1L && !is.na(x)
+}
