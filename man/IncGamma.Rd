@@ -23,7 +23,7 @@ Evaluates the incomplete Gamma function of a matrix argument.
 }
 \note{
 This function is usually defined
-for a symmetric real matrix or a Hermitian complex matrix.
+  for a symmetric real matrix or a Hermitian complex matrix.
 }
 \examples{
 # for a scalar x, this is the incomplete Gamma function:
@@ -35,5 +35,5 @@ pgamma(x, shape = a, rate = 1)
 }
 \references{
 A. K. Gupta and D. K. Nagar.
-\emph{Matrix variate distributions}. Chapman and Hall, 1999.
+  \emph{Matrix variate distributions}. Chapman and Hall, 1999.
 }
