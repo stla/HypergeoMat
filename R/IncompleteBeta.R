@@ -3,23 +3,25 @@
 #' @description Evaluates the incomplete Beta function of a matrix argument.
 #'
 #' @param m truncation weight of the summation, a positive integer
-#' @param a,b real or complex parameters with \code{Re(a)>(p-1)/2},
-#' \code{Re(b)>(p-1)/2}, where \code{p} is the dimension (the order of the matrix)
+#' @param a,b real or complex parameters with \code{Re(a)>(p-1)/2} and
+#'   \code{Re(b)>(p-1)/2}, where \code{p} is the dimension (the order of the
+#'   matrix)
 #' @param x either a real positive symmetric matrix or a complex positive
-#' Hermitian matrix "smaller" than the identity matrix (i.e. \code{I-x} is positive),
-#' or a numeric or complex vector, the eigenvalues of the matrix
+#'   Hermitian matrix "smaller" than the identity matrix (i.e. \code{I-x} is
+#'   positive), or a numeric or complex vector, the eigenvalues of the matrix
 #'
 #' @return A real or a complex number.
+#' @importFrom complexplus Det
 #' @export
 #'
 #' @note The eigenvalues of a real symmetric matrix or a complex Hermitian
-#' matrix are always real numbers, and moreover they are positive under the
-#' constraints on \code{x}.
-#' However we allow to input a numeric or complex vector \code{x}
-#' because the definition of the function makes sense for such a \code{x}.
+#'   matrix are always real numbers, and moreover they are positive under the
+#'   constraints on \code{x}.
+#'   However we allow to input a numeric or complex vector \code{x}
+#'   because the definition of the function makes sense for such a \code{x}.
 #'
 #' @references A. K. Gupta and D. K. Nagar.
-#' \emph{Matrix variate distributions}. Chapman and Hall, 1999.
+#'   \emph{Matrix variate distributions}. Chapman and Hall, 1999.
 #'
 #' @examples # for a scalar x, this is the incomplete Beta function:
 #' a <- 2; b <- 3
@@ -28,26 +30,26 @@
 #' gsl::beta_inc(a, b, x)
 #' pbeta(x, a, b)
 IncBeta <- function(m, a, b, x){
-  if(is.matrix(x)){
+  if(isSquareMatrix(x)){
+    stopifnot(!anyNA(x))
     stopifnot(isSymmetricPositive(x))
     p <- nrow(x)
     stopifnot(isSymmetricPositive(diag(p)-x))
   }else if(isNumericOrComplex(x)){
-    stopifnot((p <- length(x)) > 0L)
+    stopifnot(!anyNA(x))
+    stopifnot((p <- length(x)) != 0L)
   }else{
-    stop("Invalid `x` argument")
+    stop("Invalid `x` argument.")
   }
   stopifnot(
     isPositiveInteger(m),
-    isNumericOrComplex(a),
-    length(a) == 1L,
+    isScalar(a),
     Re(a) > (p-1)/2,
-    isNumericOrComplex(b),
-    length(b) == 1L,
+    isScalar(b),
     Re(b) > (p-1)/2
   )
   if(is.matrix(x)){
-    DET <- det(x)
+    DET <- Det(x)
   }else{
     DET <- prod(x)
   }
