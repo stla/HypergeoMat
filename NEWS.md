@@ -1,4 +1,4 @@
-# Version 3.1.0.9001 (2022-xx-xx)
+# Version 4.0.0 (2022-01-31)
 
 - The C++ code has been rewritten with `RcppEigen` instead of `RcppArmadillo`, 
 and it is faster.

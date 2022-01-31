@@ -12,11 +12,11 @@
 #'   you can use \href{https://github.com/stla/HypergeoMat.jl}{my package}.
 #'
 #' @examples library(HypergeoMat)
-#' if(JuliaConnectoR::juliaSetupOk()){
+#' \donttest{if(JuliaConnectoR::juliaSetupOk()){
 #'   jhpq <- hypergeomPFQ_julia()
 #'   jhpq(30, c(1+1i, 2, 3), c(4, 5), c(0.1, 0.2, 0.3+0.3i))
 #'   JuliaConnectoR::stopJulia()
-#' }
+#' }}
 hypergeomPFQ_julia <- function(){
   if(!juliaSetupOk()){
     stop("Julia setup is not OK.")
