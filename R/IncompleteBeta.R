@@ -11,7 +11,7 @@
 #'   positive), or a numeric or complex vector, the eigenvalues of the matrix
 #'
 #' @return A real or a complex number.
-#' @importFrom complexplus Det
+#' @importFrom EigenR Eigen_det
 #' @export
 #'
 #' @note The eigenvalues of a real symmetric matrix or a complex Hermitian
@@ -49,7 +49,7 @@ IncBeta <- function(m, a, b, x){
     Re(b) > (p-1)/2
   )
   if(is.matrix(x)){
-    DET <- Det(x)
+    DET <- Eigen_det(x)
   }else{
     DET <- prod(x)
   }
