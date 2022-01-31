@@ -8,7 +8,8 @@
 #' @export
 #'
 #' @note See \code{\link[JuliaConnectoR]{JuliaConnectoR-package}} for
-#'   information about setting up Julia.
+#'   information about setting up Julia. If you want to directly use Julia,
+#'   you can use \href{https://github.com/stla/HypergeoMat.jl}{my package}.
 #'
 #' @examples library(HypergeoMat)
 #' if(JuliaConnectoR::juliaSetupOk()){
