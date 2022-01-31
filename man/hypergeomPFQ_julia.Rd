@@ -11,5 +11,9 @@ A function with the same arguments as \code{\link{hypergeomPFQ}}.
 }
 \description{
 Evaluate the hypergeometric function of a matrix argument with
-Julia. This is highly faster.
+  Julia. This is highly faster.
+}
+\note{
+See \code{\link[JuliaConnectoR]{JuliaConnectoR-package}} for
+  information about setting up Julia.
 }
