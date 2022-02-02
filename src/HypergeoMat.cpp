@@ -46,6 +46,9 @@ Eigen::ArrayXi cleanPart(Eigen::ArrayXi& kappa) {
     vout.push_back(kappa.coeff(i));
     i++;
   }
+  if(i == 0){
+    return {};
+  }
   int* ptr_data = &vout[0];
   return Eigen::Map<Eigen::ArrayXi, Eigen::Unaligned>(ptr_data, vout.size());
 }
