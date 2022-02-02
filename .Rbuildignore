@@ -6,3 +6,4 @@ inst/self
 inst/benchmarks
 ^\.github$
 ^README\.Rmd$
+^CRAN-SUBMISSION$

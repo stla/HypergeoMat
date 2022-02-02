@@ -36,8 +36,11 @@ Dico DictParts(int m, int n) {
 }
 
 Eigen::ArrayXi cleanPart(Eigen::ArrayXi& kappa) {
-  std::vector<int> vout(0);
   int n = kappa.size();
+  if(n == 0){
+    return {};
+  }
+  std::vector<int> vout(0);
   int i = 0;
   while(i < n && kappa.coeff(i) > 0) {
     vout.push_back(kappa.coeff(i));
