@@ -1,3 +1,8 @@
+# Version 4.0.2 (2023-01-27)
+
+Switched to C++ 17.
+
+
 # Version 4.0.1 (2022-02-02)
 
 Fixed a mistake in the C++ code.

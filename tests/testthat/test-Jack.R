@@ -1,6 +1,7 @@
 context("Jack expansions")
 
 test_that("Schur expansion", {
+  skip_if_not_installed("jack")
   library(jack)
   genpoch <- function(a, kappa, alpha) {
     prod(sapply(seq_along(kappa), function(i) {
@@ -49,6 +50,7 @@ test_that("Schur expansion", {
 })
 
 test_that("Zonal expansion", {
+  skip_if_not_installed("jack")
   library(jack)
   genpoch <- function(a, kappa, alpha) {
     prod(sapply(seq_along(kappa), function(i) {
@@ -97,6 +99,7 @@ test_that("Zonal expansion", {
 })
 
 test_that("ZonalQ expansion", {
+  skip_if_not_installed("jack")
   library(jack)
   genpoch <- function(a, kappa, alpha) {
     prod(sapply(seq_along(kappa), function(i) {
@@ -145,6 +148,7 @@ test_that("ZonalQ expansion", {
 })
 
 test_that("MSF expansion", {
+  skip_if_not_installed("jack")
   library(jack)
   genpoch <- function(a, kappa, alpha) {
     prod(sapply(seq_along(kappa), function(i) {
