@@ -2,8 +2,7 @@ HypergeoMat
 ================
 
 <!-- badges: start -->
-
-[![R-CMD-check](https://github.com/stla/HypergeoMat/workflows/R-CMD-check/badge.svg)](https://github.com/stla/HypergeoMat/actions)
+[![R-CMD-check](https://github.com/stla/HypergeoMat/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/stla/HypergeoMat/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ``` r
