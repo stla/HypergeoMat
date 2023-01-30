@@ -31,9 +31,11 @@ nu <- 3
 besselJ(t, nu)
 BesselA(m=15, t^2/4, nu) * (t/2)^nu
 # it also holds for a complex variable:
-t <- 1 + 2i
-Bessel::BesselJ(t, nu)
-BesselA(m=15, t^2/4, nu) * (t/2)^nu
+if(require("Bessel")) {
+  t <- 1 + 2i
+  Bessel::BesselJ(t, nu)
+  BesselA(m=15, t^2/4, nu) * (t/2)^nu
+}
 }
 \references{
 A. K. Gupta and D. K. Nagar.

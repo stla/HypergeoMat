@@ -1,6 +1,7 @@
 context("Bessel function of Herz")
 
 test_that("Relation with Bessel-J for x scalar", {
+  skip_if_not_installed("Bessel")
   nu <- 3
   t <- 1 + 2i
   expected <- Bessel::BesselJ(t, nu)
